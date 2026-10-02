@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Skills | TeamForge</title>
+</head>
+
+<body>
+
+    <h1>My Skills</h1>
+
+    <form method="POST" action="/skills/add">
+
+        <label>Skill</label>
+
+        <select name="skill_id" required>
+
+            {% for skill in all_skills %}
+
+                <option value="{{ skill.id }}">
+                    {{ skill.name }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <label>Proficiency</label>
+
+        <select name="proficiency" required>
+
+            {% for i in range(1, 6) %}
+
+                <option value="{{ i }}">{{ i }}/5</option>
+
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <button type="submit">Add Skill</button>
+
+    </form>
+
+
+    <hr>
+
+    <h2>Current Skills</h2>
+
+    {% for skill in user_skills %}
+
+        <div>
+
+            <strong>{{ skill.name }}</strong>
+
+            <span>
+                {{ skill.proficiency }}/5
+            </span>
+
+            <a href="/skills/remove/{{ skill.id }}">
+                Remove
+            </a>
+
+        </div>
+
+    {% endfor %}
+
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit Profile | TeamForge</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    </head>
+    <body>
+        <h1>Edit Profile</h1>
+        
+        <form methd="POST">
+
+            <label>Department</label>
+            <input type="text" name="department" value="{{profile.department if profile else''}}" required>
+            <br><br>
+
+            <label>Semester</label>
+            <select name="semester" required>
+                {% for i in range(1,9)%}
+                    <option value="{{i}}" {% if profile and profile.semester == i%} selected{% endif %}>{{i}}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <label>Interests</label>
+            <textarea name="interests">{{profile.interests if profile else''}}</textarea>
+            <br><br>
+
+            <label>Availability</label>
+            <select name="availability"required>
+                <option value="Morning">Morning</option>
+                <option value="Afternoon">Afternoon</option>
+                <option value="Evening">Evening</option>
+            </select>
+            <br><br>
+
+            <button type="submit">Save Profile</button>
+        </form>
+    </body>
+</html>

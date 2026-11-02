@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Project | TeamForge</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_project.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="/dashboard">TeamForge</a>
+            <nav class="main-nav" aria-label="Main navigation">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/profile">Profile</a>
+                <a href="/skills">Skills</a>
+                <a class="active" href="/project/create">Create Project</a>
+                <a href="/projects">My Projects</a>
+                <a class="logout-link" href="/logout">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <div class="page-heading">
+            <div>
+                <p class="eyebrow">START SOMETHING NEW</p>
+                <h1>Create a project</h1>
+                <p class="page-subtitle">Tell us what you're building. You can define the required skills next.</p>
+            </div>
+        </div>
+
+        <section class="form-card">
+            <div class="form-intro">
+                <h2>Project details</h2>
+                <p>Fields marked with <span class="required-mark">*</span> are required.</p>
+            </div>
+
+            <form method="POST" class="project-form">
+                <div class="form-field">
+                    <label for="project-name">Project name <span class="required-mark">*</span></label>
+                    <input
+                        id="project-name"
+                        type="text"
+                        name="name"
+                        placeholder="e.g. Campus Event Management System"
+                        required
+                    >
+                    <p class="field-hint">Choose a short, clear name for your project.</p>
+                </div>
+
+                <div class="form-field">
+                    <label for="project-description">Description</label>
+                    <textarea
+                        id="project-description"
+                        name="description"
+                        rows="5"
+                        placeholder="What is your project about? What problem will it solve?"
+                    ></textarea>
+                    <p class="field-hint">A brief description helps potential teammates understand your idea.</p>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="project-type">Project type <span class="required-mark">*</span></label>
+                        <select id="project-type" name="project_type" required>
+                            <option value="">Select project type</option>
+                            <option value="Academic Project">Academic Project</option>
+                            <option value="Hackathon">Hackathon</option>
+                            <option value="Competition">Competition</option>
+                            <option value="Study Group">Study Group</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="team-size">Team size <span class="required-mark">*</span></label>
+                        <select id="team-size" name="team_size" required>
+                            <option value="2">2 members</option>
+                            <option value="3">3 members</option>
+                            <option value="4">4 members</option>
+                            <option value="5">5 members</option>
+                            <option value="6">6 members</option>
+                            <option value="7">7 members</option>
+                            <option value="8">8 members</option>
+                        </select>
+                        <p class="field-hint">Including you, the project creator.</p>
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <a class="cancel-link" href="/projects">Cancel</a>
+                    <button class="button button-primary" type="submit">Create project <span aria-hidden="true">→</span></button>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

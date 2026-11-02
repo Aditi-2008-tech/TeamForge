@@ -1,76 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Skills | TeamForge</title>
-</head>
-
-<body>
-
-    <h1>My Skills</h1>
-
-    <form method="POST" action="/skills/add">
-
-        <label>Skill</label>
-
-        <select name="skill_id" required>
-
-            {% for skill in all_skills %}
-
-                <option value="{{ skill.id }}">
-                    {{ skill.name }}
-                </option>
-
-            {% endfor %}
-
-        </select>
-
-        <br><br>
-
-        <label>Proficiency</label>
-
-        <select name="proficiency" required>
-
-            {% for i in range(1, 6) %}
-
-                <option value="{{ i }}">{{ i }}/5</option>
-
-            {% endfor %}
-
-        </select>
-
-        <br><br>
-
-        <button type="submit">Add Skill</button>
-
-    </form>
-
-
-    <hr>
-
-    <h2>Current Skills</h2>
-
-    {% for skill in user_skills %}
-
-        <div>
-
-            <strong>{{ skill.name }}</strong>
-
-            <span>
-                {{ skill.proficiency }}/5
-            </span>
-
-            <a href="/skills/remove/{{ skill.id }}">
-                Remove
-            </a>
-
-        </div>
-
-    {% endfor %}
-
-</body>
-
-</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>My Skills | TeamForge</title><link rel="stylesheet" href="{{ url_for('static', filename='css/profile_skills.css') }}"></head><body><header class="site-header"><div class="header-inner">
+<a class="brand" href="{{ url_for('dashboard') }}">TeamForge</a>
+<nav class="main-nav" aria-label="Main navigation">
+<a href="{{ url_for('dashboard') }}">Dashboard</a>
+<a class="" href="{{ url_for('profile') }}">Profile</a>
+<a class="active" href="{{ url_for('skills') }}">Skills</a>
+<a href="{{ url_for('create_project') }}">Create Project</a>
+<a href="{{ url_for('my_projects') }}">My Projects</a>
+<a href="{{ url_for('logout') }}">Logout</a></nav></div></header>
+<main class="page-container narrow-container"><div class="page-heading"><p class="eyebrow">SHOW WHAT YOU BRING TO A TEAM</p><h1>My skills</h1><p class="page-subtitle">Add your skills and rate your proficiency to improve teammate recommendations.</p></div>
+<section class="panel form-panel"><div class="section-heading"><div><p class="card-kicker">BUILD YOUR SKILL PROFILE</p><h2>Add a skill</h2></div></div>
+<form method="POST" action="{{ url_for('add_skill') }}" class="skill-form"><div class="form-field"><label for="skill_id">Skill</label><select id="skill_id" name="skill_id" required>{% for skill in all_skills %}<option value="{{ skill.id }}">{{ skill.name }}</option>{% endfor %}</select></div>
+<div class="form-field"><label for="proficiency">Proficiency</label><select id="proficiency" name="proficiency" required>{% for i in range(1,6) %}<option value="{{ i }}">{{ i }}/5{% if i == 1 %} · Beginner{% elif i == 3 %} · Intermediate{% elif i == 5 %} · Advanced{% endif %}</option>{% endfor %}</select></div><button class="button button-primary add-button" type="submit">Add skill →</button></form><p class="form-hint">Already added this skill? Saving it again updates your proficiency level.</p></section>
+<section class="skills-list-section"><div class="section-heading"><div><p class="card-kicker">YOUR EXPERTISE</p><h2>Current skills</h2></div><span class="count-label">{{ user_skills|length }} added</span></div>
+{% if user_skills %}<div class="current-skills-list">{% for skill in user_skills %}<article class="current-skill-card"><div class="skill-main"><div class="skill-symbol">{{ skill.name[:1]|upper }}</div><div><h3>{{ skill.name }}</h3><p>Proficiency level</p></div></div><div class="skill-level"><strong>{{ skill.proficiency }}/5</strong><div class="level-track"><span style="width: {{ skill.proficiency * 20 }}%;"></span></div></div><form method="POST" action="{{ url_for('remove_skill', skill_id=skill.id) }}" onsubmit="return confirm('Remove this skill from your profile?');"><button class="remove-button" type="submit">Remove</button></form></article>{% endfor %}</div>
+{% else %}<div class="empty-state"><div class="empty-icon">✳</div><h3>Your skill list is empty</h3><p>Add the technologies or subjects you know. They'll help TeamForge identify potential teammates for projects.</p></div>{% endif %}</section></main></body></html>

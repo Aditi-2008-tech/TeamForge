@@ -1,13 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TeamForge</title>
-        <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-    </head>
-    <body>
-        <h1>TeamForge</h1>
-        <p>Build better teams. Build better projects.</p>
-    </body>
-</html>
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TeamForge | Build better teams</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/public.css') }}">
+</head><body class="public-page">
+<header class="topbar"><a class="brand" href="{{ url_for('home') }}">TeamForge<span>.</span></a>
+<nav><a href="#how">How it works</a><a href="{{ url_for('login') }}">Log in</a><a class="btn btn-sm" href="{{ url_for('register') }}">Get started</a></nav></header>
+<main>
+<section class="hero">
+<div><p class="eyebrow">FIND YOUR PEOPLE. BUILD YOUR IDEAS.</p>
+<h1>Great projects begin with <em>the right team.</em></h1>
+<p class="lead">TeamForge helps students discover teammates with the skills their projects need. Share what you can contribute, describe what you're building, and find people who complement your strengths.</p>
+<div class="actions"><a class="btn" href="{{ url_for('register') }}">Create your account <span>→</span></a><a class="btn btn-outline" href="{{ url_for('login') }}">I already have an account</a></div>
+<p class="small-note">A student-focused space for collaboration and project teams.</p></div>
+<div class="visual" aria-label="Teamwork illustration"><div class="orbit o1"></div><div class="orbit o2"></div><div class="core"><b>TF</b><strong>One team.</strong><small>Different strengths.</small></div>
+<span class="float f1">● Frontend</span><span class="float f2">● Backend</span><span class="float f3">● UI/UX</span><span class="float f4">● Database</span></div>
+</section>
+<section class="how" id="how"><div class="section-head"><p class="eyebrow">A SIMPLE WAY TO START</p><h2>From individual skills to a stronger team.</h2><p>Make your project needs clear. TeamForge helps surface students who can fill the gaps.</p></div>
+<div class="steps"><article><b>01</b><h3>Build your profile</h3><p>Add your department, semester, interests, availability and the skills you can contribute.</p></article>
+<article><b>02</b><h3>Describe your project</h3><p>Create a project and select the skills your team needs, with an importance level for each.</p></article>
+<article><b>03</b><h3>Discover teammates</h3><p>See candidates ranked by how well their skills cover your project's requirements.</p></article></div></section>
+<section class="closing"><div><p class="eyebrow">YOUR NEXT COLLABORATION STARTS HERE</p><h2>Bring the idea. Find the missing skills.</h2></div><a class="btn btn-white" href="{{ url_for('register') }}">Join TeamForge →</a></section>
+</main><footer><a class="brand" href="{{ url_for('home') }}">TeamForge<span>.</span></a><p>Build better teams. Build better projects.</p></footer>
+</body></html>

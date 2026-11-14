@@ -1,27 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | TeamForge</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-</head>
-<body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a class="brand" href="{{ url_for('dashboard') }}">TeamForge</a>
-            <nav class="main-nav" aria-label="Main navigation">
-                <a class="active" href="{{ url_for('dashboard') }}">Dashboard</a>
-                <a href="{{ url_for('profile') }}">Profile</a>
-                <a href="{{ url_for('skills') }}">Skills</a>
-                <a href="/project/create">Create Project</a>
-                <a href="/projects">My Projects</a>
-                <a class="logout-link" href="{{ url_for('logout') }}">Logout</a>
-            </nav>
-        </div>
-    </header>
+{% extends "base.html" %}
 
-    <main class="dashboard">
+{% block title %}Dashboard | TeamForge{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="dashboard">
         <section class="welcome-section">
             <div>
                 <p class="eyebrow">YOUR TEAMWORK SPACE</p>
@@ -123,5 +109,4 @@
             </section>
         </div>
     </main>
-</body>
-</html>
+{% endblock %}

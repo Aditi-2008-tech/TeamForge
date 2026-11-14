@@ -1,0 +1,14 @@
+/* Shared TeamForge shell. Loaded before each page's own stylesheet. */
+.site-header { width:100%; background:#fff; border-bottom:1px solid #e2e8f0; box-shadow:0 2px 10px rgba(15,23,42,.04); position:relative; z-index:5; }
+.header-inner { width:min(1160px,calc(100% - 36px)); min-height:72px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+.site-header .brand { color:#4338ca; font-size:1.35rem; font-weight:800; text-decoration:none; letter-spacing:-.04em; white-space:nowrap; }
+.main-nav { display:flex; align-items:center; justify-content:flex-end; flex-wrap:wrap; gap:4px; }
+.main-nav a { color:#475569; text-decoration:none; font-size:.9rem; font-weight:600; padding:8px 10px; border-radius:8px; transition:background .18s ease,color .18s ease; }
+.main-nav a:hover,.main-nav a.active { color:#4338ca; background:#eef2ff; }
+.main-nav .logout-link { color:#64748b; }
+.flash-container { width:min(1120px,calc(100% - 36px)); margin:16px auto 0; }
+.flash-message { padding:11px 14px; margin-bottom:10px; border:1px solid #c7d2fe; border-radius:9px; background:#eef2ff; color:#3730a3; }
+.flash-message.error,.flash-message.danger { background:#fef2f2; border-color:#fecaca; color:#991b1b; }
+.flash-message.success { background:#f0fdf4; border-color:#bbf7d0; color:#166534; }
+@media(max-width:900px){.header-inner{align-items:flex-start;flex-direction:column;padding:13px 0;gap:8px}.main-nav{justify-content:flex-start;width:100%}}
+@media(max-width:560px){.header-inner{width:calc(100% - 24px)}.main-nav a{font-size:.82rem;padding:7px 8px}.flash-container{width:calc(100% - 24px)}}

@@ -1,27 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Project | TeamForge</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_project.css') }}">
-</head>
-<body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a class="brand" href="/dashboard">TeamForge</a>
-            <nav class="main-nav" aria-label="Main navigation">
-                <a href="/dashboard">Dashboard</a>
-                <a href="/profile">Profile</a>
-                <a href="/skills">Skills</a>
-                <a class="active" href="/project/create">Create Project</a>
-                <a href="/projects">My Projects</a>
-                <a class="logout-link" href="/logout">Logout</a>
-            </nav>
-        </div>
-    </header>
+{% extends "base.html" %}
 
-    <main class="page-container">
+{% block title %}Create Project | TeamForge{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create_project.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="page-container">
         <div class="page-heading">
             <div>
                 <p class="eyebrow">START SOMETHING NEW</p>
@@ -60,6 +46,16 @@
                     <p class="field-hint">A brief description helps potential teammates understand your idea.</p>
                 </div>
 
+                <div class="form-field">
+                    <label for="hackathon-id">Associated hackathon <span class="muted">(optional)</span></label>
+                    <select id="hackathon-id" name="hackathon_id">
+                        <option value="">Independent project / Not associated with an event</option>
+                        {% for event in hackathons %}
+                        <option value="{{ event.id }}">{{ event.name }} · {{ event.start_date.strftime('%d %b %Y') }} to {{ event.end_date.strftime('%d %b %Y') }}</option>
+                        {% endfor %}
+                    </select>
+                    <p class="field-hint">Choose an event from the TeamForge catalogue, or leave this blank for an independent project.</p>
+                </div>
                 <div class="form-row">
                     <div class="form-field">
                         <label for="project-type">Project type <span class="required-mark">*</span></label>
@@ -95,5 +91,4 @@
             </form>
         </section>
     </main>
-</body>
-</html>
+{% endblock %}

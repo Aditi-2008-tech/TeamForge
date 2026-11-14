@@ -1,122 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
+{% block title %}Project Requirements | TeamForge{% endblock %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/project_requirements.css') }}">
+{% endblock %}
 
-    <title>Project Requirements | TeamForge</title>
+{% block content %}
+<main class="page-container requirements-page">
+    <section class="project-summary">
+        <div class="page-heading">
+            <p class="eyebrow">PROJECT SETUP</p>
+            <h1>Project Requirements</h1>
+        </div>
+        <h2>{{ project.name }}</h2>
+        <p>{{ project.description }}</p>
+        <div class="project-meta">
+            <span><strong>Team Size:</strong> {{ project.team_size }}</span>
+            <span><strong>Project Type:</strong> {{ project.project_type }}</span>
+        </div>
+    </section>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    <section class="requirements-form">
+        <h2>Required Skills</h2>
+        <p>Select the skills your project needs and assign an importance level from 1 to 5.</p>
 
-</head>
+        <form method="POST">
+            <div class="skill-options">
+                {% for skill in all_skills %}
+                    <div class="skill-option">
+                        <label>
+                            <input type="checkbox" name="skill_{{ skill.id }}" value="1"
+                            {% for requirement in requirements %}
+                                {% if requirement.skill_id == skill.id %}checked{% endif %}
+                            {% endfor %}>
+                            {{ skill.name }}
+                        </label>
 
-<body>
-
-<header>
-
-    <h1>Project Requirements</h1>
-
-    <nav>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/projects">My Projects</a>
-        <a href="/profile">Profile</a>
-        <a href="/skills">Skills</a>
-        <a href="/logout">Logout</a>
-    </nav>
-
-</header>
-
-
-<main>
-
-    <h2>{{ project.name }}</h2>
-
-    <p>
-        {{ project.description }}
-    </p>
-
-    <p>
-        <strong>Team Size:</strong>
-        {{ project.team_size }}
-    </p>
-
-    <p>
-        <strong>Project Type:</strong>
-        {{ project.project_type }}
-    </p>
-
-
-    <hr>
-
-
-    <h3>Required Skills</h3>
-
-    <p>
-        Select the skills your project needs and assign
-        an importance level from 1 to 5.
-    </p>
-
-
-    <form method="POST">
-        {% for skill in all_skills %}
-            <div>
-                <label>
-                    <input type="checkbox" name="skill_{{ skill.id }}" value="1"
-                    {% for requirement in requirements %}
-                        {% if requirement.skill_id == skill.id %}
-                            checked
-                        {% endif %}
-                    {% endfor %}
-                >
-
-                    {{ skill.name }}
-                </label>
-                
-                <select name="importance_{{ skill.id }}">
-                    <option value="1">1 - Low</option>
-                    <option value="2">2</option>
-                    <option value="3" selected>3 - Medium</option>
-                    <option value="4">4</option>
-                    <option value="5">5 - Critical</option>
-                </select>
+                        <select name="importance_{{ skill.id }}" aria-label="Importance for {{ skill.name }}">
+                            <option value="1">1 - Low</option>
+                            <option value="2">2</option>
+                            <option value="3" selected>3 - Medium</option>
+                            <option value="4">4</option>
+                            <option value="5">5 - Critical</option>
+                        </select>
+                    </div>
+                {% endfor %}
             </div>
-            <br>
-        {% endfor %}
-        <button type="submit">Save Requirements</button>
-    </form>
-    <hr>
-    <h3>Current Requirements</h3>
+            <button type="submit">Save Requirements</button>
+        </form>
+    </section>
 
-    {% if requirements %}
-
-        {% for requirement in requirements %}
-
-            <p>
-                <strong>
-                    {{ requirement.name }}
-                </strong>
-
-                |
-                Importance:
-                {{ requirement.importance }}/5
-            </p>
-
-        {% endfor %}
-
-    {% else %}
-
-        <p>
-            No skills have been added yet.
-        </p>
-
-    {% endif %}
-
-
+    <section class="current-requirements">
+        <h2>Current Requirements</h2>
+        {% if requirements %}
+            <ul class="requirements-list">
+                {% for requirement in requirements %}
+                    <li>
+                        <strong>{{ requirement.name }}</strong>
+                        <span> | Importance: {{ requirement.importance }}/5</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No skills have been added yet.</p>
+        {% endif %}
+    </section>
 </main>
-
-</body>
-
-</html>
+{% endblock %}

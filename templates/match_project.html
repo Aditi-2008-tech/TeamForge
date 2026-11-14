@@ -1,28 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Teammates | TeamForge</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/matching.css') }}">
-</head>
-<body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a class="brand" href="{{ url_for('dashboard') }}">TeamForge</a>
-            <nav class="main-nav" aria-label="Main navigation">
-                <a href="{{ url_for('dashboard') }}">Dashboard</a>
-                <a href="{{ url_for('profile') }}">Profile</a>
-                <a href="{{ url_for('skills') }}">Skills</a>
-                <a href="{{ url_for('create_project') }}">Create Project</a>
-                <a class="active" href="{{ url_for('my_projects') }}">My Projects</a>
-                <a href="{{ url_for('logout') }}">Logout</a>
-            </nav>
-        </div>
-    </header>
+{% extends "base.html" %}
 
-    <main class="page-container">
-        <a class="back-link" href="{{ url_for('my_projects') }}">← Back to my projects</a>
+{% block title %}Find Teammates | TeamForge{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/matching.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="page-container">
+<a class="back-link" href="{{ url_for('my_projects') }}">← Back to my projects</a>
 
         <section class="page-heading">
             <p class="eyebrow">TEAMFINDER</p>
@@ -126,6 +112,21 @@
                                     {% endif %}
                                 </div>
                             </div>
+
+                            <div class="candidate-actions">
+                                {% if candidate.already_member %}
+                                    <span class="status-pill accepted">Already in your team</span>
+                                {% elif candidate.invitation_pending %}
+                                    <span class="status-pill pending">Invitation pending</span>
+                                {% elif team_full %}
+                                    <span class="status-pill">Team is full</span>
+                                {% else %}
+                                    <form method="POST"
+                                          action="{{ url_for('send_team_invitation', project_id=project.id, receiver_id=candidate.id) }}">
+                                        <button class="button button-primary" type="submit">Invite to team</button>
+                                    </form>
+                                {% endif %}
+                            </div>
                         </article>
                     {% endfor %}
                 </div>
@@ -145,5 +146,4 @@
             {% endif %}
         </section>
     </main>
-</body>
-</html>
+{% endblock %}

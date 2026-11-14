@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Invitations | TeamForge{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/matching.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="page-container">
+<section class="page-heading">
+        <p class="eyebrow">TEAM MANAGEMENT</p>
+        <h1>Invitations</h1>
+        <p class="page-subtitle">Review invitations you've received and track the ones you've sent.</p>
+    </section>
+
+    <section class="results-section">
+        <div class="section-heading"><h2>Received invitations</h2></div>
+        {% if incoming %}
+            <div class="candidate-list">
+            {% for item in incoming %}
+                <article class="candidate-card request-card">
+                    <div>
+                        <h3>{{ item.project_name }}</h3>
+                        <p class="muted">Invited by {{ item.sender_name }}</p>{% if item.hackathon_name %}<p class="muted">Event: {{ item.hackathon_name }}{% if item.hackathon_url %} · <a href="{{ item.hackathon_url }}" target="_blank" rel="noopener noreferrer">Event details</a>{% endif %}</p>{% endif %}
+                        <span class="status-pill {{ item.status }}">{{ item.status|title }}</span>
+                    </div>
+                    {% if item.status == 'pending' %}
+                    <div class="request-actions">
+                        <form method="POST" action="{{ url_for('respond_team_invitation', request_id=item.id, action='accept') }}">
+                            <button class="button button-primary" type="submit">Accept</button>
+                        </form>
+                        <form method="POST" action="{{ url_for('respond_team_invitation', request_id=item.id, action='reject') }}">
+                            <button class="button button-secondary" type="submit">Decline</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </article>
+            {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state"><h3>No invitations yet</h3><p>New team invitations will appear here.</p></div>
+        {% endif %}
+    </section>
+
+    <section class="results-section">
+        <div class="section-heading"><h2>Sent invitations</h2></div>
+        {% if outgoing %}
+            <div class="candidate-list">
+            {% for item in outgoing %}
+                <article class="candidate-card request-card">
+                    <div>
+                        <h3>{{ item.project_name }}</h3>
+                        <p class="muted">Sent to {{ item.receiver_name }}</p>{% if item.hackathon_name %}<p class="muted">Event: {{ item.hackathon_name }}{% if item.hackathon_url %} · <a href="{{ item.hackathon_url }}" target="_blank" rel="noopener noreferrer">Event details</a>{% endif %}</p>{% endif %}
+                    </div>
+                    <span class="status-pill {{ item.status }}">{{ item.status|title }}</span>
+                </article>
+            {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state"><h3>No sent invitations</h3><p>Invitations you send from the matching page will be listed here.</p></div>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}

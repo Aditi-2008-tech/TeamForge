@@ -98,3 +98,41 @@ body {
     .candidate-stats { gap: 12px 25px; }
     .section-heading { align-items: flex-start; }
 }
+
+
+/* Team invitations and membership */
+.flash-message {
+    margin: 0 0 18px;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    font-size: 14px;
+}
+.flash-message.success { color: #166534; background: var(--success-bg); border-color: #dcfce7; }
+.flash-message.warning { color: var(--warning); background: var(--warning-bg); border-color: #ffedd5; }
+.flash-message.info { color: var(--primary-dark); background: var(--soft-indigo); border-color: #c7d2fe; }
+.candidate-actions { display: flex; justify-content: flex-end; margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--border); }
+.candidate-actions form, .request-actions form { margin: 0; }
+.button { cursor: pointer; font-family: inherit; }
+.button-secondary { color: var(--text); background: #fff; border-color: var(--border); }
+.button-secondary:hover { background: var(--page-bg); }
+.status-pill {
+    display: inline-flex; align-items: center; width: fit-content;
+    padding: 4px 9px; border-radius: 999px; background: #f1f5f9;
+    color: #475569; font-size: 12px; font-weight: 650;
+}
+.status-pill.accepted { color: #166534; background: var(--success-bg); }
+.status-pill.pending { color: #92400e; background: #fef3c7; }
+.status-pill.rejected { color: #991b1b; background: #fee2e2; }
+.request-card { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.request-card h3 { margin: 0 0 4px; }
+.request-card p { margin: 0 0 8px; }
+.request-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.member-list { display: grid; gap: 12px; margin-top: 12px; }
+.member-row { display: flex; align-items: center; gap: 10px; }
+.member-row > div { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; }
+@media (max-width: 580px) {
+    .request-card { align-items: flex-start; flex-direction: column; }
+    .candidate-actions { justify-content: flex-start; }
+}

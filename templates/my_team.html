@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}My Team | TeamForge{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/matching.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="page-container">
+    <section class="page-heading">
+        <p class="eyebrow">TEAM MANAGEMENT</p>
+        <h1>My Team</h1>
+        <p class="page-subtitle">Projects where you're currently a team member.</p>
+    </section>
+    {% if teams %}
+        <div class="candidate-list">
+        {% for team in teams %}
+            <article class="candidate-card">
+                <div class="section-heading">
+                    <div>
+                        <p class="card-kicker">PROJECT TEAM</p>
+                        <h2>{{ team.project_name }}</h2>
+                    </div>
+                    <span class="count-label">{{ team.member_count }} / {{ team.team_size }} members</span>
+                </div>
+                {% if team.description %}<p class="muted">{{ team.description }}</p>{% endif %}{% if team.hackathon_name %}<p class="muted">Associated event: {{ team.hackathon_name }}{% if team.hackathon_url %} · <a href="{{ team.hackathon_url }}" target="_blank" rel="noopener noreferrer">Event details</a>{% endif %}</p>{% endif %}
+                <h3>Members</h3>
+                <div class="member-list">
+                    {% for member in team.members %}
+                        <div class="member-row">
+                            <span class="avatar" aria-hidden="true">{{ member.name[:1]|upper }}</span>
+                            <div>
+                                <strong>{{ member.name }}</strong>
+                                {% if member.id == team.creator_id %}<span class="status-pill accepted">Creator</span>{% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </article>
+        {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <div class="empty-icon" aria-hidden="true">＋</div>
+            <h3>You haven't joined a team yet</h3>
+            <p>When you accept a team invitation, that project and its members will appear here.</p>
+            <a class="button button-primary" href="{{ url_for('team_requests') }}">View invitations</a>
+        </div>
+    {% endif %}
+</main>
+{% endblock %}

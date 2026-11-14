@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TeamForge{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/teamforge_base.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="{{ url_for('dashboard') }}">TeamForge</a>
+            <nav class="main-nav" aria-label="Main navigation">
+                <a class="{% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a class="{% if request.endpoint in ['profile', 'edit_profile'] %}active{% endif %}" href="{{ url_for('profile') }}">Profile</a>
+                <a class="{% if request.endpoint == 'skills' %}active{% endif %}" href="{{ url_for('skills') }}">Skills</a>
+                <a class="{% if request.endpoint == 'create_project' %}active{% endif %}" href="{{ url_for('create_project') }}">Create Project</a>
+                <a class="{% if request.endpoint in ['my_projects', 'project_requirements', 'match_project'] %}active{% endif %}" href="{{ url_for('my_projects') }}">My Projects</a>
+                <a class="{% if request.endpoint == 'team_requests' %}active{% endif %}" href="{{ url_for('team_requests') }}">Invitations</a>
+                <a class="{% if request.endpoint == 'my_team' %}active{% endif %}" href="{{ url_for('my_team') }}">My Team</a>
+                {% if current_user_is_admin %}<a class="{% if request.endpoint == 'manage_hackathons' %}active{% endif %}" href="{{ url_for('manage_hackathons') }}">Manage Events</a>{% endif %}
+                <a class="logout-link" href="{{ url_for('logout') }}">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container" role="status">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

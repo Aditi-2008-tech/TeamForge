@@ -8,6 +8,7 @@
 <section class="auth-card"><p class="eyebrow">GET STARTED</p><h2>Create your account</h2><p class="muted">It only takes a moment to join TeamForge.</p>
 <form method="POST" action="{{ url_for('register') }}">
 <label for="name">Full name</label><input id="name" type="text" name="name" placeholder="Your name" autocomplete="name" required>
+<label for="university">University / Institution</label><input id="university" type="text" name="university" placeholder="Your university name" autocomplete="organization" maxlength="150" required>
 <label for="email">Email address</label><input id="email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
 <label for="password">Password</label><input id="password" type="password" name="password" placeholder="Create a password" autocomplete="new-password" required>
 <label for="confirm_password">Confirm password</label><input id="confirm_password" type="password" name="confirm_password" placeholder="Enter your password again" autocomplete="new-password" required>

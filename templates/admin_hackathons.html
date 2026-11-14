@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Manage Hackathons | TeamForge{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/hackathons.css') }}">{% endblock %}
+{% block content %}
+<main class="page-container">
+<section class="page-heading"><p class="eyebrow">ADMINISTRATION</p><h1>Hackathon catalogue</h1><p class="page-subtitle">Add and maintain events students can associate with their projects.</p></section>
+<section class="panel hackathon-admin-panel"><div class="section-heading"><div><p class="card-kicker">NEW EVENT</p><h2>Add a hackathon</h2></div></div>
+<form method="POST" class="hackathon-form">
+<div class="form-field"><label for="name">Event name *</label><input id="name" name="name" maxlength="150" required placeholder="e.g. Innovation Challenge 2026"></div>
+<div class="form-field"><label for="organizer">Organizer</label><input id="organizer" name="organizer" maxlength="150" placeholder="Organization / institution"></div>
+<div class="form-field"><label for="description">Description</label><textarea id="description" name="description" rows="3"></textarea></div>
+<div class="form-row"><div class="form-field"><label for="start_date">Start date *</label><input id="start_date" type="date" name="start_date" required></div><div class="form-field"><label for="end_date">End date *</label><input id="end_date" type="date" name="end_date" required></div></div>
+<div class="form-field"><label for="registration_url">Official event / registration URL</label><input id="registration_url" type="url" name="registration_url" placeholder="https://..."></div>
+<button class="button button-primary" type="submit">Add to catalogue →</button></form></section>
+<section class="results-section"><div class="section-heading"><h2>Current catalogue</h2><span class="count-label">{{ hackathons|length }} events</span></div>
+{% if hackathons %}<div class="hackathon-list">{% for event in hackathons %}<article class="panel hackathon-item"><div><h3>{{ event.name }}</h3><p class="muted">{{ event.organizer or 'Organizer not specified' }}</p><p class="muted">{{ event.start_date.strftime('%d %b %Y') }} – {{ event.end_date.strftime('%d %b %Y') }}</p>{% if event.description %}<p>{{ event.description }}</p>{% endif %}{% if event.registration_url %}<a href="{{ event.registration_url }}" target="_blank" rel="noopener noreferrer">Open official event link ↗</a>{% endif %}</div><form method="POST" action="{{ url_for('delete_hackathon', hackathon_id=event.id) }}" onsubmit="return confirm('Remove this event from the catalogue? Linked projects will remain.');"><button class="button button-secondary" type="submit">Remove</button></form></article>{% endfor %}</div>
+{% else %}<div class="empty-state"><h3>No events added yet</h3><p>Add the first event to make it available in project creation.</p></div>{% endif %}</section></main>
+{% endblock %}

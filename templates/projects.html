@@ -1,27 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects | TeamForge</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/projects.css') }}">
-</head>
-<body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a class="brand" href="/dashboard">TeamForge</a>
-            <nav class="main-nav" aria-label="Main navigation">
-                <a href="/dashboard">Dashboard</a>
-                <a href="/profile">Profile</a>
-                <a href="/skills">Skills</a>
-                <a href="/project/create">Create Project</a>
-                <a class="active" href="/projects">My Projects</a>
-                <a class="logout-link" href="/logout">Logout</a>
-            </nav>
-        </div>
-    </header>
+{% extends "base.html" %}
 
-    <main class="page-container">
+{% block title %}My Projects | TeamForge{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/projects.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="page-container">
         <section class="page-heading">
             <div>
                 <p class="eyebrow">YOUR WORKSPACE</p>
@@ -43,6 +29,7 @@
                             <span class="project-type">{{ project.project_type }}</span>
                         </div>
 
+                        {% if project.hackathon_name %}<p class="project-type">Event: {{ project.hackathon_name }}{% if project.hackathon_url %} · <a href="{{ project.hackathon_url }}" target="_blank" rel="noopener noreferrer">Registration link</a>{% endif %}</p>{% endif %}
                         <p class="project-description">
                             {{ project.description if project.description else "No description has been added yet." }}
                         </p>
@@ -68,5 +55,4 @@
             </section>
         {% endif %}
     </main>
-</body>
-</html>
+{% endblock %}
